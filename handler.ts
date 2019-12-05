@@ -3,9 +3,12 @@ import express from 'express';
 import serverlessHttp from 'serverless-http';
 
 const app = express();
+const router = express.Router();
 
-app.get('/test', function(_req: express.Request, res: express.Response) {
+router.get('/test', (_req: express.Request, res: express.Response) => {
   res.send('Hello World');
 });
+
+app.use('/mentorship', router);
 
 export const handler = serverlessHttp(app);

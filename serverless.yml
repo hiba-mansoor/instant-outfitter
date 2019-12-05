@@ -1,8 +1,5 @@
 service:
   name: mentorship
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
 
 custom:
   webpack:
@@ -24,11 +21,22 @@ provider:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  resourcePolicy:
+    - Effect: Allow
+      Principal: '*'
+      Action: execute-api:Invoke
+      Resource:
+        - execute-api:/develop/GET/mentorship/*
+        # - execute-api:/develop/GET/mentorship/*
+        # - execute-api:/develop/POST/mentorship/*
+        # - execute-api:/develop/PUT/mentorship/*
+        # - execute-api:/develop/DELETE/mentorship/*
+        # - execute-api:/develop/OPTIONS/mentorship/*
 
 functions:
-  lambda:
+  mentorship:
     handler: handler.handler
     events:
       - http:
           method: any
-          path: /{proxy*}
+          path: mentorship/{proxy+}
