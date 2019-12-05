@@ -16,7 +16,10 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs10.x
+  region: us-east-1
+  stage: develop
+  role: arn:aws:iam::160965362920:role/AWSLambdaBasicExecutionRole
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
