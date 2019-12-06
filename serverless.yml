@@ -27,11 +27,10 @@ provider:
       Action: execute-api:Invoke
       Resource:
         - execute-api:/develop/GET/mentorship/*
-        # - execute-api:/develop/GET/mentorship/*
-        # - execute-api:/develop/POST/mentorship/*
-        # - execute-api:/develop/PUT/mentorship/*
-        # - execute-api:/develop/DELETE/mentorship/*
-        # - execute-api:/develop/OPTIONS/mentorship/*
+        - execute-api:/develop/POST/mentorship/*
+        - execute-api:/develop/PUT/mentorship/*
+        - execute-api:/develop/DELETE/mentorship/*
+        - execute-api:/develop/OPTIONS/mentorship/*
 
 functions:
   mentorship:
