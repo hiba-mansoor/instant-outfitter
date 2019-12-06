@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 import express from 'express';
 import serverlessHttp from 'serverless-http';
-import { productRouter } from './routes/product';
+import { productRouter } from './src/routes/product';
 
 const app = express();
 
