@@ -19,8 +19,7 @@ provider:
   role: arn:aws:iam::160965362920:role/AWSLambdaBasicExecutionRole
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
-  environment:
-    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  environment: ${file(env.yml)}
   resourcePolicy:
     - Effect: Allow
       Principal: '*'
