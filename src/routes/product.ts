@@ -1,4 +1,5 @@
 import express from 'express';
+import {Product} from "../db/schemas/product";
 
 const router = express.Router();
 
@@ -13,13 +14,14 @@ router.get('/product', (_req: express.Request, res: express.Response) => {
 });
 
 router.get('/product2', wrapAsync(async (_req: express.Request, res: express.Response) => {
-    const p = new Promise((resolve, reject) => {
-        resolve(2)
+    const product = new Product({ name: 'John23', brand: "182", type: "socks2" });
+    await product.save((error) => {
+        if (error) {
+            res.send(error);
+            return console.log(`Error has occurred: ${error}`);
+        }
+        res.send(product);
     });
-    // p.then(data => res.send(data))
-    const data = await p;
-    throw new Error('error');
-    res.send(data);
 }));
 
 router.get('/product3', (_req: express.Request, res: express.Response) => {
