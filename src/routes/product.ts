@@ -1,5 +1,5 @@
 import express from 'express';
-import {Product} from "../db/schemas/product";
+import {Product, ProductInterface} from "../db/schemas/product";
 
 const router = express.Router();
 
@@ -8,24 +8,18 @@ const wrapAsync = (fn) => (_req: express.Request, res: express.Response, next: F
      return Promise.resolve(functionResult).catch(error => next(error));
 };
 
-router.get('/product', (_req: express.Request, res: express.Response) => {
-    console.log('in /product handler');
-    res.send('data');
-});
-
-router.get('/product2', wrapAsync(async (_req: express.Request, res: express.Response) => {
-    const product = new Product({ name: 'John23', brand: "182", type: "socks2" });
-    await product.save((error) => {
-        if (error) {
-            res.send(error);
-            return console.log(`Error has occurred: ${error}`);
-        }
-        res.send(product);
-    });
+router.post('/product', wrapAsync(async (_req: express.Request, res: express.Response) => {
+    const p:ProductInterface = {name: _req.body.name, brand: _req.body.brand, type: _req.body.type};
+    const product = new Product(p);
+    await product.save();
+    res.send(product);
+    console.log(_req.body);
 }));
 
-router.get('/product3', (_req: express.Request, res: express.Response) => {
-    res.json({key: process.env.auth_api_key});
-});
+router.get('/product/:productId', wrapAsync(async (_req: express.Request, res: express.Response) => {
+    const productId = _req.params.productId;
+    const product = await Product.find({_id: productId});
+    res.send(product);
+}));
 
 export const productRouter = router;

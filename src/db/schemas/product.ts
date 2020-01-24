@@ -7,4 +7,10 @@ const productSchema = new Schema({
     type: String
 });
 
+export interface ProductInterface {
+    name: string,
+    brand: string,
+    type: string
+}
+
 export const Product = db.model("Product", productSchema);
